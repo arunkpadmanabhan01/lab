@@ -1,40 +1,48 @@
-data SEGMENT
-ARRAY DW  1234H,4567H,789AH,1236H,1111H
-ARRSIZE EQU 5
-MSG1 DB 10,13,'FOUND$'
-MSG2 DB 10,13, 'NOT FOND$'
-data ENDS
-code SEGMENT
- ASSUME CS:code,DS:data  
- START:
- MOV AX,data            
-
- MOV DS,AX
- MOV CX,ARRSIZE
- LEA SI,ARRAY
- MOV AX,1111H
- 
- NEXT:
- CMP AX,[SI]
- JZ FOUND
- INC SI
- INC SI
- DEC CX
- JNZ NEXT
- 
- 
-   NOTFOUND:
- LEA DX,MSG2
- MOV AH,09H
- INT 21H
- JMP EXIT
-          FOUND:
- LEA DX,MSG1
- MOV AH,09H
- EXIT:
- MOV AH,4CH
- INT 21H
-
- 
-code ENDS
+data SEGMENT 
+    array DW 1234h,5678h,90ABh,3456h,789Ah
+    array_size equ 5
+    MSG1 DB 10,13,'FOUND$'
+    MSG2 DB 10,13,'NOT FOUND$'
+    
+    data ENDS
+code SEGMENT 
+    
+    
+    ASSUME CS:code DS:data
+    
+    
+    START:
+    MOV AX ,DATA 
+    MOV DS,AX
+    
+    
+    MOV CX,array_size
+     
+     LEA SI,array 
+     MOV AX, 3563h
+     NEXT:
+     CMP AX,[SI]
+     JZ FOUND
+     INC SI
+     INC SI
+     DEC CX
+     JNZ NEXT
+     
+    NOTFOUND:
+    LEA DX,MSG2
+    MOV AH,09H
+    INT 21H
+    JMP EXIT
+    
+    FOUND:
+    LEA DX,MSG1
+    MOV AH,09H
+    INT 21H
+    
+    EXIT:
+    MOV AH,4CH
+    INT 21H
+    CODE ENDS
 END START
+
+ 
