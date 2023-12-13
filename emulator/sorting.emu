@@ -1,0 +1,39 @@
+data segment
+    arr dw 2222,1111,4444,3333
+    num DW ?
+    count db 3
+data ends
+code segment
+    assume cs:code ds:data
+    start:
+    mov ax,data
+    mov ds,ax   
+    mov ch,count
+    first:
+    mov cl,count
+    lea si,arr
+    second:
+    mov ax,[si] 
+    inc si
+    inc si
+    mov bx,[si]
+    cmp ax,[si]
+    jna do
+    xchg ax,bx
+    dec si
+    dec si
+    mov [si],ax
+    inc si
+    inc si
+    mov [si],bx
+    do:
+        inc si
+        inc si
+        dec cl
+        jnz second
+        dec ch
+        jnz first
+    mov ah,4ch
+    int 21h
+code ends
+end start
