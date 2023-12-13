@@ -159,3 +159,38 @@ void display() {
     fclose(fp4);
 
 }
+/*
+intermediate.txt
+    COPY	START	2000
+2000	**	LDA	FIVE
+2003	**	STA	ALPHA
+2006	**	LDCH	CHARZ
+2009	**	STCH	C1
+200C	ALPHA	RESW	2
+2012	FIVE	WORD	5
+2015	CHARZ	BYTE	C'Z'
+2016	C1	RESB	1
+2017	*	END	*
+
+
+
+
+
+    length.txt
+    23
+
+
+    optab.txt
+    LDA 03
+STA	0F
+LDCH	53
+STCH	57
+END	*
+
+
+    symtab.txt
+    ALPHA	200C
+FIVE	2012
+CHARZ	2015
+C1	2016
+*/
