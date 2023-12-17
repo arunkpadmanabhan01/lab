@@ -1,39 +1,56 @@
-data segment
-    arr dw 2222,1111,4444,3333
-    num DW ?
-    count db 3
-data ends
-code segment
-    assume cs:code ds:data
-    start:
-    mov ax,data
-    mov ds,ax   
-    mov ch,count
-    first:
-    mov cl,count
-    lea si,arr
-    second:
-    mov ax,[si] 
-    inc si
-    inc si
-    mov bx,[si]
-    cmp ax,[si]
-    jna do
-    xchg ax,bx
-    dec si
-    dec si
-    mov [si],ax
-    inc si
-    inc si
-    mov [si],bx
-    do:
-        inc si
-        inc si
-        dec cl
-        jnz second
-        dec ch
-        jnz first
-    mov ah,4ch
-    int 21h
-code ends
-end start
+DATA SEGMENT
+    ARR DW 5412H,9B24H,126FH,2222H,0FFFFH
+    SIZE EQU 5 
+    SMALL DW ?
+DATA ENDS
+
+
+CODE SEGMENT
+    ASSUME CS:CODE,DS:DATA
+    
+    START:
+    MOV AX,DATA
+    MOV DS,AX
+    
+    MOV BX,SIZE
+    DEC BX
+    
+    INNERLOOP:
+    MOV CX,SIZE
+    DEC CX
+    
+    LEA SI,ARR
+    
+    NEXT:
+    MOV AX,[SI]
+    INC SI
+    INC SI
+    CMP AX,[SI]
+    
+    JA GREATERTHAN
+    
+    XCHG AX,[SI]
+    DEC SI
+    DEC SI
+    
+    MOV [SI],AX
+    
+    INC SI
+    INC SI
+    
+    GREATERTHAN:
+    LOOP NEXT
+    
+    DEC BX
+    JNZ INNERLOOP
+    
+    
+    MOV AX,[SI]
+    MOV SMALL,AX 
+    
+    
+    
+    MOV AH,4CH
+    INT 21H   
+CODE ENDS
+END START
